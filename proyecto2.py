@@ -1,4 +1,4 @@
-from curses.ascii import SI
+
 from msilib.schema import Class
 
 
@@ -50,23 +50,15 @@ def agregar_carrito () :
     id = input("Ingrese Identificador del Producto: ")
     for prod in listaP :
         if prod.id == id :
+            carrito_com.id_compra = prod.id
             carrito_com.product_compra = prod.nombre
             carrito_com.precio_prod = prod.precio
             carrito_com.cantidad_prod = int(input("Ingrese la Cantidad de Productos a Agregar: "))
             carrito_com.total_pago = (carrito_com.precio_prod * carrito_com.cantidad_prod)
-            resp = input("Desea Agregar otro producto al carrito")
-            if (resp == SI) :
-                id = input("Ingrese Identificador del Producto: ")
-                for prod in listaP :
-                    if prod.id == id :
-                        carrito_com.product_compra = prod.nombre
-                        carrito_com.precio_prod = prod.precio
-                        carrito_com.cantidad_prod = int(input("Ingrese la Cantidad de Productos a Agregar: "))
-                        carrito_com.total_pago = (carrito_com.precio_prod * carrito_com.cantidad_prod)
-            else :
-                print("LA TIENDA")
-                print(carrito_com.product_compra, "----------", carrito_com.precio_prod)
-                print("TOTAL: ", carrito_com.total_pago)
+           # resp = input("Desea Agregar otro producto al carrito")
+            print("LA TIENDA")
+            print(carrito_com.product_compra, "----------", carrito_com.precio_prod)
+            print("TOTAL: ", carrito_com.total_pago)
 
     
 
@@ -74,6 +66,10 @@ def agregar_carrito () :
 
 def remover_carrito() :
     print("Remover Producto del Carrito de Compras")
+    id_remover = input("Ingrese el Identificador del producto que desea Remover")
+    for carrito_com in listaCarrito :
+        if carrito_com.id_compra == id_remover :
+            
 
 
 def salir () :
