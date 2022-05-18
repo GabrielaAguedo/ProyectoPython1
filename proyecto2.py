@@ -1,6 +1,7 @@
 
 from msilib.schema import Class
-import re
+from pickle import TRUE
+
 
 
 global listaP
@@ -26,12 +27,22 @@ class Carrito :
 def registrar_producto () :
     print("Registro de Productos")
     prod = Producto()
+    while(True) :
+        prod.id = input("Ingrese Identificador del Producto: ")
+        prod.nombre = input("Ingrese Nombre del Producto: ")
+        prod.precio = int(input("Ingrese el Precio del Producto: "))
+        prod.cantidad_p = int(input("Ingrese la Cantidad de Productos a Agregar: "))
+        listaP.append(prod)
 
-    prod.id = input("Ingrese Identificador del Producto: ")
-    prod.nombre = input("Ingrese Nombre del Producto: ")
-    prod.precio = int(input("Ingrese el Precio del Producto: "))
-    prod.cantidad_p = int(input("Ingrese la Cantidad de Productos a Agregar: "))
-    listaP.append(prod)
+        resp = input("¿Desea agregar otro producto? [s/n]: ")
+        resp = resp.lower()
+        if (resp == "n") :
+            
+            print("El producto se agrego correctamente")
+            break
+            
+        
+
 
 def listar_producto () :
     print("Listado de Productos")
@@ -66,19 +77,28 @@ def eliminar_producto () :
 def agregar_carrito () :
     print("Agregar Producto al Carrito")
     carrito_com = Carrito()
-    id = input("Ingrese Identificador del Producto: ")
-    for prod in listaP :
-        if prod.id == id :
-            carrito_com.id_compra = prod.id
-            carrito_com.product_compra = prod.nombre
-            carrito_com.precio_prod = prod.precio
-            carrito_com.cantidad_prod = int(input("Ingrese la Cantidad de Productos a Agregar: "))
-            carrito_com.total_pago = (carrito_com.precio_prod * carrito_com.cantidad_prod)
-           # resp = input("Desea Agregar otro producto al carrito")
-            listaCarrito.append(carrito_com)
-            print("---------- LA TIENDA ----------")
-            print("Producto:", carrito_com.product_compra, "----------","CANT:",carrito_com.cantidad_prod, "----------" "Precio U:", carrito_com.precio_prod)
-            print("TOTAL: ", carrito_com.total_pago)
+    while(True) :
+        id = input("Ingrese Identificador del Producto: ")
+        for prod in listaP :
+            if prod.id == id :
+                carrito_com.id_compra = prod.id
+                carrito_com.product_compra = prod.nombre
+                carrito_com.precio_prod = prod.precio
+                carrito_com.cantidad_prod = int(input("Ingrese la Cantidad de Productos a Agregar: "))
+                carrito_com.total_pago = (carrito_com.precio_prod * carrito_com.cantidad_prod)
+                listaCarrito.append(carrito_com)
+                
+                resp = input("¿Desea agregar otro producto al carrito? [s/n]: ")
+                resp = resp.lower()
+                if (resp == "n") :
+                    print("---------- LA TIENDA ----------")
+                    print("Producto:", carrito_com.product_compra, "----------","CANT:",carrito_com.cantidad_prod, "----------" "Precio U:", carrito_com.precio_prod)
+                    print("TOTAL: ", carrito_com.total_pago)
+                    break
+            
+           
+           
+            
 
             
 
@@ -88,8 +108,14 @@ def remover_carrito() :
     id_ing = input("Ingrese el Identificador del producto que desea eliminar: ")
     for carrito_com in listaCarrito :
         if carrito_com.id_compra == id_ing :
-            listaCarrito.remove(carrito_com)
-            print("El producto ha sido eliminado del carrito de compras")
+            while(True):
+                resp = input("¿Realmente desea eliminar? [s/n]: ")
+                resp = resp.lower()
+                if(resp == "s" or resp == "n") :
+                    break
+            if (resp == "s") :
+                listaCarrito.remove(carrito_com)
+                print("El producto ha sido eliminado del carrito de compras")
 
 
 def salir () :
