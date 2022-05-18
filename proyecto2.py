@@ -1,16 +1,20 @@
 
 from msilib.schema import Class
+import re
 
 
 global listaP
-global listaCarrito
+
 listaP = list()
 listaCarrito = list()
+
 class Producto :
     id = ""
     nombre = ""
     precio = 0
     cantidad_p = 0
+
+
 
 class Carrito :
     id_compra = ""
@@ -44,6 +48,21 @@ def buscar_producto () :
             print(prod.id, "--", prod.nombre, "--", prod.precio, "--", prod.cantidad_p)
 
 
+def eliminar_producto () :
+    print("Eliminar Producto del Stock")
+    id_prodE = input("Ingrese el Identificador del producto que desea eliminar: ")
+    for prod in listaP :
+        if prod.id == id_prodE :
+            while(True):
+                resp = input("¿Realmente desea eliminar? [s/n]: ")
+                resp = resp.lower()
+                if(resp == "s" or resp == "n") :
+                    break
+            if (resp == "s") :
+                listaP.remove(prod)
+                print("El producto ha sido eliminado del Stock")
+
+
 def agregar_carrito () :
     print("Agregar Producto al Carrito")
     carrito_com = Carrito()
@@ -56,41 +75,45 @@ def agregar_carrito () :
             carrito_com.cantidad_prod = int(input("Ingrese la Cantidad de Productos a Agregar: "))
             carrito_com.total_pago = (carrito_com.precio_prod * carrito_com.cantidad_prod)
            # resp = input("Desea Agregar otro producto al carrito")
-            print("LA TIENDA")
-            print(carrito_com.product_compra, "----------", carrito_com.precio_prod)
+            listaCarrito.append(carrito_com)
+            print("---------- LA TIENDA ----------")
+            print("Producto:", carrito_com.product_compra, "----------","CANT:",carrito_com.cantidad_prod, "----------" "Precio U:", carrito_com.precio_prod)
             print("TOTAL: ", carrito_com.total_pago)
 
-    
-
+            
 
 
 def remover_carrito() :
     print("Remover Producto del Carrito de Compras")
-    #id_remover = input("Ingrese el Identificador del producto que desea Remover")
-    #for carrito_com in listaCarrito :
-      #  if carrito_com.id_compra == id_remover :
-            
+    id_ing = input("Ingrese el Identificador del producto que desea eliminar: ")
+    for carrito_com in listaCarrito :
+        if carrito_com.id_compra == id_ing :
+            listaCarrito.remove(carrito_com)
+            print("El producto ha sido eliminado del carrito de compras")
 
 
 def salir () :
-    print("Gracias por usar la aplicación")
+    print("¡GRACIAS POR USAR LA APLICACIÓN!")
     
 
 def menu ():
 
     op = 0
 
-    salirmenu = 6
+    salirmenu = 7
 
     while op != salirmenu :
-
+        #while(True) :
         print("Menú")
         print("1.- Registrar Producto ")
         print("2.- Listar Productos")
         print("3.- Buscar Producto")
-        print("4.- Agregar Producto al Carrito")
-        print("5.- Remover Producto del Carrito")
-        print("6.- Salir")
+        print("4.- Eliminar Producto")
+        print("5.- Agregar Producto al Carrito")
+        print("6.- Remover Producto del Carrito")
+        print("7.- Salir")
+
+
 
         op = int(input("Digite opción: "))
 
@@ -102,14 +125,17 @@ def menu ():
 
         elif (op == 3) :
             buscar_producto()
-
+        
         elif (op == 4) :
+           eliminar_producto()
+
+        elif (op == 5) :
             agregar_carrito()
         
-        elif (op == 5) :
+        elif (op == 6) :
             remover_carrito()
 
-        elif (op == 6) :
+        elif (op == 7) :
             salir()
 
 menu ()
