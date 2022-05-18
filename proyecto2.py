@@ -66,9 +66,9 @@ def agregar_carrito () :
 
 def remover_carrito() :
     print("Remover Producto del Carrito de Compras")
-    id_remover = input("Ingrese el Identificador del producto que desea Remover")
-    for carrito_com in listaCarrito :
-        if carrito_com.id_compra == id_remover :
+    #id_remover = input("Ingrese el Identificador del producto que desea Remover")
+    #for carrito_com in listaCarrito :
+      #  if carrito_com.id_compra == id_remover :
             
 
 
