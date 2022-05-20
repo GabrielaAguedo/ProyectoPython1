@@ -1,7 +1,8 @@
 
 from msilib.schema import Class
-from pickle import TRUE
 
+from operator import add
+from itertools import accumulate
 
 
 global listaP
@@ -31,21 +32,15 @@ def registrar_producto () :
     prod.nombre = input("Ingrese Nombre del Producto: ")
     prod.precio = int(input("Ingrese el Precio del Producto: "))
     prod.cantidad_p = int(input("Ingrese la Cantidad de Productos a Agregar: "))
-    listaP.append(prod)
-
-    #resp = input("¿Desea agregar otro producto? [s/n]: ")
-    #resp = resp.lower()
-    #if (resp == "n") :
-     #   print("El producto se agrego correctamente")
-      #  break
-            
+    listaP.append(prod)         
         
 
 
 def listar_producto () :
     print("Listado de Productos")
+    print()
     for prod in listaP :
-        print(prod.id, "--", prod.nombre, "--", prod.precio, "--", prod.cantidad_p)
+        print(prod.id, "------", prod.nombre, "------", prod.precio, "------", prod.cantidad_p)
 
 
 def buscar_producto () :
@@ -84,19 +79,10 @@ def agregar_carrito () :
             carrito_com.cantidad_prod = int(input("Ingrese la Cantidad de Productos a Agregar: "))
             carrito_com.total_pago = (carrito_com.precio_prod * carrito_com.cantidad_prod)
             listaCarrito.append(carrito_com)
-
-            print("---------- LA TIENDA ----------")
-            print("Producto:", carrito_com.product_compra, "----------","CANT:",carrito_com.cantidad_prod, "----------" "Precio U:", carrito_com.precio_prod)
-            print("TOTAL: ", carrito_com.total_pago)
-                    
-            
-           
-           
-            
+            print("El producto se agrego correctamente al carrito")
 
             
-
-
+       
 def remover_carrito() :
     print("Remover Producto del Carrito de Compras")
     id_ing = input("Ingrese el Identificador del producto que desea eliminar: ")
@@ -112,35 +98,48 @@ def remover_carrito() :
                 print("El producto ha sido eliminado del carrito de compras")
 
 
+
+def cobrar() :
+    print("--------------------------------\n          ¡LA TIENDA!\n--------------------------------")
+    for carrito_com in listaCarrito :
+        
+        print("Producto:", carrito_com.product_compra, "----------","CANT:",carrito_com.cantidad_prod, "----------" "Precio U:", carrito_com.precio_prod)
+        vari = int(carrito_com.total_pago)
+        suma = sum(vari)
+        print("TOTAL: ", suma)
+        print()
+    print("--------------------------\n¡GRACIAS POR SU COMPRA\n--------------------------")
+
+
+
 def salir () :
-    print("¡GRACIAS POR USAR LA APLICACIÓN!")
+    print("--------------------------------\n¡GRACIAS POR USAR LA APLICACIÓN!\n--------------------------------")
     
 
 def menu ():
 
     op = 0
 
-    salirmenu = 7
+    salirmenu = 8
 
     while op != salirmenu :
-        #while(True) :
-        print("Menú")
+       
+        print("♦♦♦♦ MENÚ ♦♦♦♦")
         print("1.- Registrar Producto ")
-        print("2.- Listar Productos")
+        print("2.- Mostrar Productos")
         print("3.- Buscar Producto")
         print("4.- Eliminar Producto")
         print("5.- Agregar Producto al Carrito")
         print("6.- Remover Producto del Carrito")
-        print("7.- Salir")
-
-
+        print("7.- Cobrar")
+        print("8.- Salir")
 
         op = int(input("Digite opción: "))
 
         if (op == 1) :
             while(True) :
                 registrar_producto()
-                resp = input("¿Desea agregar otro producto al carrito? [s/n]: ")
+                resp = input("¿Desea agregar otro producto al Stock? [s/n]: ")
                 resp = resp.lower()
                 if (resp == "n") :
                     break
@@ -154,12 +153,37 @@ def menu ():
            eliminar_producto()
 
         elif (op == 5) :
-            agregar_carrito()
-        
+            while(True) :
+                agregar_carrito()
+                resp = input("¿Desea agregar otro producto al Carrito? [s/n]: ")
+                resp = resp.lower()
+                if (resp == "n") :
+                    break
+            carrito_com = (Carrito)    
+            vari = int(carrito_com.total_pago)
+            suma = sum(vari)
+            print("El TOTAL de la Compra es: ", suma)    
+            res = input("¿Confirma la compra? [s/n]: ")
+            res = res.lower()
+            if res ==  "s" :
+                cobrar()
+            else :
+                opc = int(input("Digite opción: "))
+                print("1.-Desea Eliminar un producto del Carrito")
+                print("2.-Volver al Menú y Cancelar la Compra")
+                if (opc == 1) :
+                    remover_carrito()
+                else :
+                    listaCarrito.clear()
+                    
+            
         elif (op == 6) :
             remover_carrito()
-
+        
         elif (op == 7) :
+            cobrar()
+
+        elif (op == 8) :
             salir()
 
 menu ()
