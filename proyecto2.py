@@ -26,7 +26,8 @@ class Carrito :
     total_pago = 0
 
 def registrar_producto () :
-    print("Registro de Productos")
+    print("--------------- REGISTRO DE PRODUCTOS ---------------")
+    print()
     prod = Producto()
     prod.id = input("Ingrese Identificador del Producto: ")
     prod.nombre = input("Ingrese Nombre del Producto: ")
@@ -37,7 +38,7 @@ def registrar_producto () :
 
 
 def listar_producto () :
-    print("Listado de Productos")
+    print("--------------- LISTADO DE PRODUCTOS ---------------")
     print()
     for prod in listaP :
         print(prod.id, "------", prod.nombre, "------", prod.precio, "------", prod.cantidad_p)
@@ -45,7 +46,8 @@ def listar_producto () :
 
 
 def buscar_producto () :
-    print("Busqueda de Productos")
+    print("--------------- BUSQUEDA DE PRODUCTOS ---------------")
+    print()
     id = input("Ingrese el id del Producto a buscar: ")
 
     for prod in listaP :
@@ -54,7 +56,8 @@ def buscar_producto () :
 
 
 def eliminar_producto () :
-    print("Eliminar Producto del Stock")
+    print("--------------- ELIMINAR PRODUCTO DEL STOCK ---------------")
+    print()
     id_prodE = input("Ingrese el Identificador del producto que desea eliminar: ")
     for prod in listaP :
         if prod.id == id_prodE :
@@ -69,7 +72,8 @@ def eliminar_producto () :
 
 
 def agregar_carrito () :
-    print("Agregar Producto al Carrito")
+    print("--------------- AGREGAR PRODUCTOS AL CARRITO ---------------")
+    print()
     carrito_com = Carrito()
     id = input("Ingrese Identificador del Producto: ")
     for prod in listaP :
@@ -85,7 +89,8 @@ def agregar_carrito () :
             
        
 def remover_carrito() :
-    print("Remover Producto del Carrito de Compras")
+    print("--------------- REMOVER PRODUCTO DEL CARRITO DE COMPRAS ---------------")
+    print()
     id_ing = input("Ingrese el Identificador del producto que desea eliminar: ")
     for carrito_com in listaCarrito :
         if carrito_com.id_compra == id_ing :
@@ -105,7 +110,7 @@ def total_pedido():
         return total
 
 def cobrar() :
-    print("•••••••••••••••••••••••••\n       ¡LA TIENDA!\n•••••••••••••••••••••••••")
+    print("••••••••••••••••••••••••••••••••••••••••••\n               ¡LA TIENDA!\n••••••••••••••••••••••••••••••••••••••••••")
     for carrito_com in listaCarrito :
         
         print("Producto:", carrito_com.product_compra, "----------","CANT:",carrito_com.cantidad_prod, "----------" "Precio U:", carrito_com.precio_prod)
@@ -113,7 +118,7 @@ def cobrar() :
         
         print()
     print("TOTAL: ", total_pedido())    
-    print("--------------------------\n¡GRACIAS POR SU COMPRA!\n--------------------------")
+    print("------------------------------------------\n           ¡GRACIAS POR SU COMPRA!\n------------------------------------------")
 
 
 
