@@ -30,7 +30,7 @@ def registrar_producto () :
     prod = Producto()
     prod.id = input("Ingrese Identificador del Producto: ")
     prod.nombre = input("Ingrese Nombre del Producto: ")
-    prod.precio = int(input("Ingrese el Precio del Producto: "))
+    prod.precio = float(input("Ingrese el Precio del Producto: "))
     prod.cantidad_p = int(input("Ingrese la Cantidad de Productos a Agregar: "))
     listaP.append(prod)         
         
@@ -41,6 +41,7 @@ def listar_producto () :
     print()
     for prod in listaP :
         print(prod.id, "------", prod.nombre, "------", prod.precio, "------", prod.cantidad_p)
+
 
 
 def buscar_producto () :
@@ -97,18 +98,22 @@ def remover_carrito() :
                 listaCarrito.remove(carrito_com)
                 print("El producto ha sido eliminado del carrito de compras")
 
-
+def total_pedido():
+        total=0
+        for carrito_com in listaCarrito:
+            total += carrito_com.total_pago
+        return total
 
 def cobrar() :
-    print("--------------------------------\n          ¡LA TIENDA!\n--------------------------------")
+    print("•••••••••••••••••••••••••\n       ¡LA TIENDA!\n•••••••••••••••••••••••••")
     for carrito_com in listaCarrito :
         
         print("Producto:", carrito_com.product_compra, "----------","CANT:",carrito_com.cantidad_prod, "----------" "Precio U:", carrito_com.precio_prod)
-        vari = int(carrito_com.total_pago)
-        suma = sum(vari)
-        print("TOTAL: ", suma)
+
+        
         print()
-    print("--------------------------\n¡GRACIAS POR SU COMPRA\n--------------------------")
+    print("TOTAL: ", total_pedido())    
+    print("--------------------------\n¡GRACIAS POR SU COMPRA!\n--------------------------")
 
 
 
@@ -154,28 +159,12 @@ def menu ():
 
         elif (op == 5) :
             while(True) :
-                agregar_carrito()
+                agregar_carrito ()
                 resp = input("¿Desea agregar otro producto al Carrito? [s/n]: ")
                 resp = resp.lower()
                 if (resp == "n") :
+                    print("El total de su compra es: ", total_pedido())
                     break
-            carrito_com = (Carrito)    
-            vari = int(carrito_com.total_pago)
-            suma = sum(vari)
-            print("El TOTAL de la Compra es: ", suma)    
-            res = input("¿Confirma la compra? [s/n]: ")
-            res = res.lower()
-            if res ==  "s" :
-                cobrar()
-            else :
-                opc = int(input("Digite opción: "))
-                print("1.-Desea Eliminar un producto del Carrito")
-                print("2.-Volver al Menú y Cancelar la Compra")
-                if (opc == 1) :
-                    remover_carrito()
-                else :
-                    listaCarrito.clear()
-                    
             
         elif (op == 6) :
             remover_carrito()
